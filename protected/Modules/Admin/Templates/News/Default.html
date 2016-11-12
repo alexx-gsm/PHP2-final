@@ -1,0 +1,41 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+    {% set provider = provider.setPageSize(10) %}
+
+    <a class="btn btn-primary pull-right" href="/admin/news/edit/?id=new">Добавить новость</a>
+    <h2>Новости</h2>
+
+
+        {% for item in provider.getPage(page) %}
+            <div class="row article">
+                <div class="col-xs-2">
+                    <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}" width="100px" height="100px">
+                </div>
+                <div class="col-xs-8">
+                    <h3>{{ item.title }}</h3>
+                    <div>{{ item.text | slice(0, 200) }}&hellip;</div>
+                </div>
+                <div class="col-xs-2">
+                    <p>{{ item.published | date('d.m.Y') }}</p>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/news/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/news/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/posts/?page=%d'}) }}
+    </div>
+
+
+{% endblock %}

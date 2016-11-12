@@ -1,0 +1,55 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+    {% set provider = provider.setPageSize(10) %}
+
+    <a class="btn btn-primary pull-right" href="/admin/posts/edit/?id=new">Новый пост</a>
+    <h2>Блог</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Картинка</th>
+            <th>Заголовок</th>
+            <th>Вводное</th>
+            <th>Текст</th>
+            <th>Дата публикации</th>
+            <th>Кол-во комментов</th>
+            <th>Автор</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        {% for item in provider.getPage(page) %}
+            <tbody>
+            <tr>
+                <td>
+                    <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}" width="50px" height="50px">
+                </td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.lead }}</td>
+                <td>{{ item.text | raw }}</td>
+                <td>{{ item.published | date('d.m.Y') }}</td>
+                <td>{{ item.comments | length }}</td>
+                <td>{{ item.user.name }}</td>
+                <td width="10%">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/posts/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/posts/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/posts/?page=%d'}) }}
+    </div>
+
+
+{% endblock %}

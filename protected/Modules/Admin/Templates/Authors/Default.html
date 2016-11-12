@@ -1,0 +1,42 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+    {% set provider = provider.setPageSize(10) %}
+
+    <a class="btn btn-primary pull-right" href="/admin/authors/edit/?id=new">Добавить автора</a>
+    <h2>Авторы</h2>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th width="20%">Дата рождения</th>
+        <th width="10%"></th>
+    </tr>
+    </thead>
+        {% for item in provider.getPage(page) %}
+        <tbody>
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.birthday | date('d.m.Y') }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/authors/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/authors/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/authors/?page=%d'}) }}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+
+    {% set provider = provider.setPageSize(10) %}
+
+    <a class="btn btn-primary pull-right" href="/admin/songs/edit/?id=new">Новая композиция</a>
+    <h2>Композиции</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Альбомы</th>
+            <th>Длительность</th>
+            <th>Автор</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        {% for item in provider.getPage(page) %}
+            <tbody>
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>
+                    <ul>
+                        {% for album in item.albums %}
+                            <li>{{ album.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ item.duration | date('H:i:s') }}</td>
+                <td>{{ item.author.name }}</td>
+                <td width="10%">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/songs/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/songs/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/songs/?page=%d'}) }}
+    </div>
+
+
+{% endblock %}

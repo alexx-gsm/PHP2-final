@@ -1,0 +1,64 @@
+{% extends 'Admin.html' %}
+{% import '/macros/Helpers.twig' as Helpers %}
+
+{% block pagehead %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+    <fieldset>
+        {{ Helpers.formLegend(item, 'Автор') }}
+
+        <form  class="form-horizontal" action="/admin/authors/save/" method="post">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Автор</label>
+                <div class="col-sm-10">
+                    <input id="name" class="form-control" type="text" name="author[name]" value="{{ item.name }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="birthday" class="col-sm-2 control-label">Дата рождения</label>
+                <div class="col-sm-10">
+                    <input id="birthday" class="form-control" type="text" name="author[birthday]" value="{{ item.birthday | date('d.m.Y') }}" required>
+                </div>
+            </div>
+            <input type="hidden" name="author[__id]" value="{{ item.Pk }}">
+
+            {# BUTTONS START #}
+            <div class="btn-group pull-right" role="group">
+                <button class="btn btn-success " type="submit">
+                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp; СОХРАНИТЬ
+                </button>
+                <a class="btn btn-default" href="/admin/authors/">отмена</a>
+            </div>
+            <div class="btn-group" role="group">
+                <a class="btn btn-primary btn-sm" href="/admin/authors/edit/?id=new">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; добавить
+                </a>
+                <a class="btn btn-default btn-sm" href="/admin/authors/">
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp; все
+                </a>
+            </div>
+            {# BUTTONS END #}
+        </form>
+    </fieldset>
+
+{% endblock %}
+{% block pagescript %}
+    <script>
+        (function($) {
+            $("#birthday").datepicker({
+                dateFormat: 'dd.mm.yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>',
+                monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+                monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+                dayNamesMin: [ "Вс","Пн","Вт","Ср","Чт","Пт","Сб" ],
+                firstDay: 1,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2016"
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

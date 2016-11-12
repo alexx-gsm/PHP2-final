@@ -1,0 +1,4 @@
+{% macro formLegend(item, desc) %}
+    {% set title = item.Pk ? 'edit' : 'new' %}
+    <legend>{{ desc }} | {{ title }}</legend>
+{% endmacro %}

@@ -1,0 +1,30 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+    <h1>Hello, world!</h1>
+    <h2>Posts</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Заголовок</th>
+            <th>Вводное</th>
+            <th>Текст</th>
+            <th>Картинка</th>
+            <th>Дата публикации</th>
+            <th>Количество комментариев</th>
+            <th>Автор</th>
+        </tr>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.lead }}</td>
+                <td>{{ post.text }}</td>
+                <td>{{ post.image }}</td>
+                <td>{{ post.published | date('d.m.Y') }}</td>
+                <td>{{ post.comments | length }}</td>
+                <td>{{ post.user.name }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<div class="row album">
+    <div class="col-xs-2">
+        <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}" width="100px" height="100px">
+    </div>
+    <div class="col-xs-8">
+        <h3>{{ item.title }}</h3>
+        <div>
+            <ul>
+                {% for song in item.songs %}
+                    <li>{{ song.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <p>{{ item.published | date('d.m.Y') }}</p>
+        <div class="btn-group" role="group">
+            <a class="btn btn-sm btn-primary" href="/admin/albums/edit/?id={{ item.Pk }}">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a>
+            <a class="btn btn-sm btn-danger" href="/admin/albums/delete/?id={{ item.Pk }}">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</div>

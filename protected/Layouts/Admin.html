@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админка</title>
+  {{ publishCss() }}
+  {{ publish('/Layouts/assets') }}
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles.css') }}">
+  {% block pagehead %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">HEADER</div>
+<div class="container admin">
+  <div class="row">
+    <div class="col-xs-3">
+      <h2>Разделы</h2>
+      <div class="list-group">
+        <a class="list-group-item" href="/admin/news/">Новости</a>
+        <a class="list-group-item" href="/admin/posts/">Блог</a>
+        <a class="list-group-item" href="/admin/comments/">Комментарии</a>
+        <a class="list-group-item" href="/admin/users/">Пользователи</a>
+        <a class="list-group-item" href="/admin/authors/">Авторы</a>
+        <a class="list-group-item" href="/admin/songs/">Композиции</a>
+        <a class="list-group-item" href="/admin/albums/">Альбомы</a>
+      </div>
+    </div>
+    <div class="col-xs-9">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>
+
+<div class="divider-40"></div>
+{{ publishJs() }}
+{#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
+<script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>
+{% block pagescript %}{% endblock %}
+</body>
+</html>

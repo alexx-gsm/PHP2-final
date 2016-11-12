@@ -1,0 +1,35 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+    {% set provider = provider.setPageSize(10) %}
+    <a class="btn btn-primary pull-right" href="/admin/users/edit/?id=new">Добавить пользователя</a>
+    <h2>Пользователи</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Имя</th>
+            <th>Почта</th>
+            <th>Количество статей</th>
+            <th>Количество комментариев</th>
+            <th>День рождения</th>
+            <th>Дата регистрации</th>
+            <th></th>
+        </tr>
+        {% for item in provider.getPage(page) %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.posts | length }}</td>
+                <td>{{ item.comments | length }}</td>
+                <td>{{ item.birthday | date('d.m.Y') }}</td>
+                <td>{{ item.registered | date('d.m.Y') }}</td>
+                <td></td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/users/?page=%d'}) }}
+    </div>
+
+{% endblock %}

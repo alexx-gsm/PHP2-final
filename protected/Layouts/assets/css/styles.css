@@ -1,0 +1,22 @@
+input[type="file"] {
+    display: inline-block;
+}
+
+.divider-40 {
+    margin-top: 40px;
+}
+
+.admin .article,
+.admin .album {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.admin .article h3,
+.admin .album h3 {
+    margin-top: 0;
+}
+.admin .article img,
+.admin .album img {
+    margin-top: 5px;
+}

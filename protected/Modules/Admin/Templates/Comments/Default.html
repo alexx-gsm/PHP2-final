@@ -1,0 +1,39 @@
+{% extends 'Admin.html' %}
+
+{% block content %}
+    {% set provider = provider.setPageSize(10) %}
+    <h2>Комментарии</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Комментарий</th>
+            <th>Статья</th>
+            <th>Автор</th>
+            <th>Дата публикации</th>
+            <th></th>
+        </tr>
+        {% for item in provider.getPage(page) %}
+            <tr>
+                <td>{{ item.text }}</td>
+                <td>{{ item.post.title }}</td>
+                <td>{{ item.user.name }}</td>
+                <td>{{ item.published | date('d.m.Y') }}</td>
+                <td width="10%">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/comments/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/comments/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/comments/?page=%d'}) }}
+    </div>
+
+{% endblock %}
