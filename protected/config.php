@@ -12,6 +12,9 @@ return [
     ],
     'extensions' => [
         'jquery' => [],
+        'jstree' => [
+            'autoload' => false,
+        ],
         'ckeditor' => [
             'location' => 'local',
         ],

@@ -1,0 +1,18 @@
+{% macro datePicker(elem) %}
+    <script>
+        (function($) {
+            $('{{ elem }}').datepicker({
+                dateFormat: 'dd.mm.yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>',
+                monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+                monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+                dayNamesMin: [ "Вс","Пн","Вт","Ср","Чт","Пт","Сб" ],
+                firstDay: 1,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2016"
+            });
+        })(jQuery);
+    </script>
+{% endmacro %}

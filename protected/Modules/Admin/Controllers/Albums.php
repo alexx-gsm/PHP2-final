@@ -25,33 +25,43 @@ class Albums
         } else {
             $item = Album::findByPK($id);
             if (empty($item)) {
-                throw new E404Exception('Композиция не найдена');
+                throw new E404Exception('Альбом не найден');
             }
         }
         $this->data->item = $item;
-        $this->data->authors = Song::findAll();
+        $this->data->songs = Song::findAll();
+
     }
 
-    public function actionSave($post)
+    public function actionSave($album)
     {
-        $item = empty($post->__id) ? new Post() : Post::findByPK($post->__id);
-        $item->fill($post);
+        $item = empty($album->__id) ? new Album() : Album::findByPK($album->__id);
+        $item->fill($album);
 
-        $image = (new Uploader('file'))->setPathUpload(ROOT_PATH_PROTECTED . '/Layouts/assets/images/posts/');
+        $image = (new Uploader('image'))->setPathUpload(Album::IMAGE_PATH);
         if ($image->upload()) {
-            $item->image = $image->getFileName();
+            $item->image = Album::PREFIX_IMAGE_NAME . $image->getFileName();
         }
         $item->save();
 
-        $this->redirect('/admin/posts');
+        $this->redirect('/admin/albums');
+    }
+
+    public function actionAddSong($song)
+    {
+        $album = Album::findByPK($song->album_id);
+        $song = Song::findByPK($song->id);
+        $album->songs->add($song);
+        $album->save();
+        $this->redirect('/admin/albums/edit/?id=' . $album->getPk());
     }
 
     public function actionDelete($id)
     {
-        $item = Post::findByPK($id);
+        $item = Album::findByPK($id);
         if (!empty($item)) {
             $item->delete();
         }
-        $this->redirect('/admin/posts');
+        $this->redirect('/admin/albums');
     }
 }

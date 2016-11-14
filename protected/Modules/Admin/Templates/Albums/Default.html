@@ -5,11 +5,10 @@
     {% set provider = provider.setPageSize(10) %}
 
     <a class="btn btn-primary pull-right" href="/admin/albums/edit/?id=new">Новый альбом</a>
-    <h2>Альбомы</h2>
 
-        {% for item in provider.getPage(page) %}
-            {% include 'parts/album.twig' %}
-        {% endfor %}
+    <h2>Альбомы</h2>
+    <hr>
+    {% include 'parts/album.twig' with {'items': provider.getPage(page)} %}
 
     <div class="pager">
         {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/albums/?page=%d'}) }}

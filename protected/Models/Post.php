@@ -30,4 +30,7 @@ class Post extends Model
             'comments' => ['type' => self::HAS_MANY, 'model' => Comment::class],
         ],
     ];
+
+    const IMAGE_PATH = ROOT_PATH_PROTECTED . '/Layouts/assets/images/posts/';
+    const PREFIX_IMAGE_NAME = '/images/posts/';
 }

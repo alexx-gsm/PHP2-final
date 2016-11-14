@@ -6,13 +6,17 @@ use T4\Orm\Model;
 
 class Menu extends Model
 {
-    protected static $schema = [
-        'table'   => 'menu',
+    static protected $schema = [
+        'table' => 'menu',
         'columns' => [
-            'name'       => ['type' => 'string'],
-            'email'      => ['type' => 'string'],
-            'birthday'   => ['type' => 'date'],
-            'registered' => ['type' => 'date'],
-        ]
+            'title' => [
+                'type' => 'string',
+            ],
+            'url' => [
+                'type' => 'string',
+            ],
+        ],
     ];
+
+    static protected $extensions = ['tree'];
 }

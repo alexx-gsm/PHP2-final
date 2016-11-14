@@ -51,13 +51,9 @@
 
         </form>
     </fieldset>
-    <hr>
-    <h3>Альбомы</h3>
-    <hr>
-     {% for item in item.albums %}
-        {% include 'parts/album.twig' %}
-     {% endfor %}
 
+    <h3 class="">Альбомы</h3>
+    {% include 'parts/album.twig' with {'items': item.albums} %}
 
 {% endblock %}
 {% block pagescript %}

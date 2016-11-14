@@ -7,6 +7,7 @@
   {{ publishCss() }}
   {{ publish('/Layouts/assets') }}
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/jquery-ui.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles.css') }}">
   {% block pagehead %}{% endblock %}
 </head>
@@ -24,6 +25,7 @@
         <a class="list-group-item" href="/admin/authors/">Авторы</a>
         <a class="list-group-item" href="/admin/songs/">Композиции</a>
         <a class="list-group-item" href="/admin/albums/">Альбомы</a>
+        <a class="list-group-item" href="/admin/menu/">Меню</a>
       </div>
     </div>
     <div class="col-xs-9">
@@ -34,8 +36,8 @@
 
 <div class="divider-40"></div>
 {{ publishJs() }}
-{#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
 <script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/Layouts/assets/js/jquery-ui.min.js') }}"></script>
 {% block pagescript %}{% endblock %}
 </body>
 </html>

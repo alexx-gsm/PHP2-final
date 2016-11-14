@@ -1,102 +1,57 @@
 {% extends 'Admin.html' %}
 {% import '/macros/Helpers.twig' as Helpers %}
+{% import '/macros/JSBlock.twig' as JS %}
+
+{% block pagehead %}
+
+{% endblock %}
 
 {% block content %}
     <fieldset>
-        {{ Helpers.formLegend(item, 'Пост') }}
+        {{ Helpers.formLegend(item, 'Альбом') }}
 
-        <form  class="form-horizontal" action="/admin/posts/save/" method="post" enctype="multipart/form-data">
+        <form  class="form-horizontal" action="/admin/albums/save/" method="post" enctype="multipart/form-data">
+
+            {{ Helpers.formTitle('album[title]', item.title) }}
+
             <div class="form-group">
-                <label for="title" class="col-sm-2 control-label">Заголовок</label>
+                <label for="published" class="col-sm-2 control-label">Дата выпуска</label>
                 <div class="col-sm-10">
-                    <input id="title" class="form-control" type="text" name="post[title]" value="{{ item.title }}">
+                    <input id="published" class="form-control" type="text" name="album[published]" value="{{ item.published | date('d.m.Y') }}" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="file" class="col-sm-2 control-label">Картинка</label>
-                <input type="hidden" name="MAX_FILE_SIZE" value="100000">
-                <div class="col-sm-10">
-                    {% if item.image %}
-                        <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}" width="50px" height="50px">
-                    {% endif %}
-                    <input type="image" name="file">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lead" class="col-sm-2 control-label">Вводное</label>
-                <div class="col-sm-10">
-                    <textarea id="lead" class="form-control" rows="3" name="post[lead]">{{ item.lead }}</textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="text" class="col-sm-2 control-label">Текст</label>
-                <div class="col-sm-10">
-                    <t4:editor id="text" class="form-control" rows="3" name="post[text]">{{ item.lead }}</t4:editor>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="user" class="col-sm-2 control-label">Автор</label>
-                <div class="col-sm-10">
-                    <select id="user" name="post[user]" class="form-control">
-                        {% for user in users %}
-                            <option value="{{ user.Pk }}">{{ user.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="btn-group pull-right" role="group">
-                <button class="btn btn-success " type="submit">
-                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp; СОХРАНИТЬ
-                </button>
-                <a class="btn btn-default" href="/admin/posts/">отмена</a>
-            </div>
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-sm" href="/admin/posts/edit/?id=new">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; добавить пост
-                </a>
-                <a class="btn btn-default btn-sm" href="/admin/posts/">
-                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp; все посты
-                </a>
-            </div>
-            <input type="hidden" name="post[__id]" value="{{ item.Pk }}">
+
+            {{ Helpers.formImage(item.image) }}
+
+            <input type="hidden" name="album[__id]" value="{{ item.Pk }}">
+
+            {{ Helpers.formBtnSave('albums') }}
+
+            {{ Helpers.extraBtns('albums') }}
+
         </form>
     </fieldset>
-    <hr>
-    <h3>Комментарии</h3>
-    <table class="table table-striped">
-        <tr>
-            <th>Комментарий</th>
-            <th>Автор</th>
-            <th>Дата публикации</th>
-            <th></th>
-        </tr>
-        {% for item in item.comments %}
-            <tr>
-                <td>{{ item.text }}</td>
-                <td>{{ item.user.name }}</td>
-                <td>{{ item.published | date('d.m.Y') }}</td>
-                <td width="10%">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-sm btn-primary" href="/admin/comments/edit/?id={{ item.Pk }}">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-sm btn-danger" href="/admin/comments/delete/?id={{ item.Pk }}">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </td>
-            </tr>
 
-        {% endfor %}
-    </table>
     <hr>
-    <div class="btn-group" role="group">
-        <a class="btn btn-primary btn-sm" href="/admin/comments/edit/?id=new">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; добавить комментарий
-        </a>
-        <a class="btn btn-default btn-sm" href="/admin/comments/">
-            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp; все комментарии
-        </a>
-    </div>
+    <h3>Композиции</h3>
+    {% include 'parts/songs.twig' with {'items': item.songs} %}
+    <hr>
 
+    <fieldset>
+        <form class="form-horizontal" action="/admin/albums/addSong/" method="post">
+            <div class="col-sm-9">
+                <select name="song[id]" id="" class="form-control">
+                    {% for song in songs %}
+                        <option value="{{ song.Pk }}">"{{ song.title }}": {{ song.author.name }} ({{ song.duration | date('H:i:s') }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="song[album_id]" value="{{ item.Pk }}">
+            <input class="col-sm-3 btn btn-success" type="submit" value="Добавить в альбом">
+        </form>
+    </fieldset>
+
+{% endblock %}
+{% block pagescript %}
+    {{ JS.datePicker('#published') }}
 {% endblock %}
