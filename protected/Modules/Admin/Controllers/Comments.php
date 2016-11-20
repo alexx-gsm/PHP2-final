@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use T4\Http\E404Exception;
 use T4\Mvc\Controller;
@@ -17,25 +18,20 @@ class Comments
         $this->data->page = $page;
     }
 
-    public function actionEdit($id)
-    {
-        $item = Comment::findByPK($id);
-        if (empty($item)) {
-            throw new E404Exception('Комментарий не найден');
-        }
-        $this->data->item = $item;
-        $this->data->users = User::findAll();
-    }
-
     public function actionSave($comment)
     {
-        $item = Comment::findByPK($comment->__id);
-
-        if (!empty($item)) {
-            $item->fill($comment)->save();
+        $post = Post::findByPK($comment->post_id);
+        if (!empty($post)) {
+            $item = new Comment();
+            $item->text = $comment->text;
+            $item->published = date('Y-m-d');
+            $item->post = $post;
+            $item->user = User::findByPK(1);
+            $item->save();
+            $this->redirect('/posts/one/?id=' . $comment->post_id);
         }
 
-        $this->redirect('/admin/comments');
+        $this->redirect('/posts/');
     }
 
     public function actionDelete($id)

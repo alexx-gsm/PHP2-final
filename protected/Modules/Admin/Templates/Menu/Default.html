@@ -10,18 +10,18 @@
             <h1 class="page-title txt-color-blueDark"><i class="fa fa-file-text-o fa-fw "></i> Меню </h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-            <ul id="sparks" class="">
+            <div class="menu-info">
 
-                <li><a class="btn btn-primary" href="/admin/menu/edit?id=new">Добавить элемент</a></li>
+                <span><a class="btn btn-primary" href="/admin/menu/edit?id=new">Добавить элемент</a></span>
 
-                <li class="sparks-info">
+                <span>
                     <h5> Всего элементов в меню <span class="txt-color-blue">{{items|length}}</span></h5>
-                </li>
-            </ul>
+                </span>
+            </div>
         </div>
     </div>
 
-    <section class="well">
+    <section class="admin-menu">
         <div class="row">
 
             <div class="dd" id="tree-nestable" style="width: 100%; max-width: 100%">
@@ -47,7 +47,6 @@
                         {% endif %}
 
                         <li class="dd-item dd3-item" data-id="{{item.__id}}">
-                            <div class="dd-handle dd3-handle" data-id="{{item.__id}}">Drag</div>
                             <div class="dd3-content">
                                 <a href="/admin/menu/edit/?id={{item.__id}}">{{item.title}} [{{item.url}}]</a>
                                 <span class="pull-right">

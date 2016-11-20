@@ -1,0 +1,44 @@
+input[type="file"] {
+    display: inline-block;
+}
+
+.divider-40 {
+    margin-top: 40px;
+}
+
+.admin .article,
+.admin .album {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.admin .article h3,
+.admin .album h3 {
+    margin-top: 0;
+}
+.admin .article img,
+.admin .album img {
+    margin-top: 5px;
+}
+.admin .admin-menu {
+    padding: 20px;
+
+}
+.admin .dd3-content a {
+    color: #555;
+}
+.admin .menu-info {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 15px;
+    align-items: center;
+}
+.admin .menu-info span {
+    padding: 0 15px;
+}
+.admin .menu-info > span:last-child {
+    border-left: 1px dotted #dddddd;
+}
+.admin-menu .smart-form footer {
+    background: transparent;
+}

@@ -1,0 +1,33 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+
+    {% set provider = provider.setPageSize(10) %}
+<div class="news">
+    <h1>Новости</h1>
+
+        {% for item in provider.getPage(page) %}
+            <div class="row block">
+                <div class="col-xs-2 date">
+                    <p>{{ item.published | date('d.m.Y') }}</p>
+                </div>
+                <div class="col-xs-1 time-line"><div></div></div>
+                <div class="col-xs-9 article">
+                    <h3>{{ item.title }}</h3>
+                    <div class="row">
+                        <div class="col-xs-4 image">
+                            <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}">
+                        </div>
+                        <div class="col-xs-8 text" >
+                            {{ item.text | raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/posts/?page=%d'}) }}
+    </div>
+</div>
+{% endblock %}

@@ -11,7 +11,6 @@ return [
         ],
     ],
     'extensions' => [
-        'jquery' => [],
         'jstree' => [
             'autoload' => false,
         ],

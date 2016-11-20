@@ -1,30 +1,42 @@
 {% extends 'Index.html' %}
 
 {% block content %}
-    <h1>Hello, world!</h1>
-    <h2>Posts</h2>
-    <table class="table table-striped">
-        <tr>
-            <th>Заголовок</th>
-            <th>Вводное</th>
-            <th>Текст</th>
-            <th>Картинка</th>
-            <th>Дата публикации</th>
-            <th>Количество комментариев</th>
-            <th>Автор</th>
-        </tr>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.lead }}</td>
-                <td>{{ post.text }}</td>
-                <td>{{ post.image }}</td>
-                <td>{{ post.published | date('d.m.Y') }}</td>
-                <td>{{ post.comments | length }}</td>
-                <td>{{ post.user.name }}</td>
-            </tr>
 
-        {% endfor %}
-    </table>
+<div class="posts">
+    <h1>Блог</h1>
+    {% set provider = provider.setPageSize(10) %}
 
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 555, "gutter": 10, "fitWidth": true }'>
+    {% for post in provider.getPage(page) %}
+        <div class="grid-item post">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>{{ post.title }}</h2>
+                    <div class="info">
+                        <i class="fa fa-calendar" aria-hidden="true"></i><span>{{ post.published | date('d.m.Y') }}</span>
+                        <span class="divider-info"></span>
+                        <i class="fa fa-user" aria-hidden="true"></i><span>{{ post.user.name }}</span>
+                    </div>
+
+                    <div class="image">
+                        <img src="{{ asset('/Layouts/assets' ~ post.image) }}">
+                    </div>
+
+                    <div class="text">{{ post.lead }}</div>
+                    <div class="panel-footer info">
+                        <i class="fa fa-comment-o" aria-hidden="true"></i><span>{{ post.comments | length }}</span>
+                        <span class="divider-info"></span>
+                        <a href="/posts/one?id={{ post.Pk }}">далее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/posts/?page=%d'}) }}
+    </div>
+</div>
 {% endblock %}

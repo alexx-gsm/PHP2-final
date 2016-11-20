@@ -6,10 +6,12 @@
   <title>Админка</title>
   {{ publishCss() }}
   {{ publish('/Layouts/assets') }}
+  <link rel="stylesheet" href="{{ asset('/Layouts/Admin/assets/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/Admin/assets/css/smartadmin-production.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/jquery-ui.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/wickedpicker.css') }}">
-  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles-admin.css') }}">
   {% block pagehead %}{% endblock %}
 </head>
 <body>
@@ -29,6 +31,7 @@
 {{ publishJs() }}
 <script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('/Layouts/assets/js/jquery-ui.min.js') }}"></script>
+
 {% block pagescript %}{% endblock %}
 </body>
 </html>

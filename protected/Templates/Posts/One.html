@@ -1,0 +1,59 @@
+{% extends 'Index.html' %}
+{% import '/macros/Helpers.twig' as Helpers %}
+
+{% block content %}
+
+<div class="post-one">
+    <h1>{{ post.title }}</h1>
+    <div class="info">
+        <i class="fa fa-calendar" aria-hidden="true"></i><span>{{ post.published | date('d.m.Y') }}</span>
+        <i class="fa fa-user" aria-hidden="true"></i><span>{{ post.user.name }}</span>
+    </div>
+    <div class="image">
+        <img src="{{ asset('/Layouts/assets' ~ post.image) }}">
+    </div>
+    <div class="text">{{ post.text }}</div>
+
+    <hr>
+    <a class="btn btn-sm btn-default" href="/posts/"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp; Все статьи</a>
+
+    <h2>Комментарии ({{ post.comments | length }})</h2>
+    <div class="comments">
+        {% for comment in post.comments %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="comment-info">
+                        <i class="fa fa-calendar" aria-hidden="true"></i><span>{{ comment.published | date('d.m.Y') }}</span>
+                        <i class="fa fa-user" aria-hidden="true"></i><span>{{ comment.user.name }}</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{ comment.text }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addComment" aria-expanded="false" aria-controls="addComment">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+    <div class="collapse" id="addComment">
+        <fieldset>
+            <legend>Новый комментарий</legend>
+            <form class="form-horizontal" action="/admin/comments/save/" method="post">
+
+                {{ Helpers.formText('comment[text]') }}
+
+                <input type="hidden" name="comment[post_id]" value="{{ post.Pk }}">
+
+                <div class="btn-group pull-right" role="group">
+                    <button class="btn btn-success " type="submit">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp; ДОБАВИТЬ
+                    </button>
+                </div>
+
+            </form>
+        </fieldset>
+    </div>
+</div>
+
+{% endblock %}

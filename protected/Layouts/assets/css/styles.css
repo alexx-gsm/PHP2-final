@@ -1,22 +1,214 @@
-input[type="file"] {
-    display: inline-block;
+html, body {
+    height: 100%;
 }
 
-.divider-40 {
-    margin-top: 40px;
+body {
+    background: transparent;
+}
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -100px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.wrapper:after {
+    content: '';
+    display: block;
+    height: 100px;
+}
+.navbar-main {
+    border: none;
+    border-radius: 0;
+    border-bottom: 3px solid gray;
+    background: #000;
+    margin: 0;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #91170a;
+}
+.content-main {
+    margin-top: 60px;
+    background: rgba(255,255,255, .9);
 }
 
-.admin .article,
-.admin .album {
-    margin-bottom: 10px;
+.navbar-default .navbar-nav > a:hover,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #e4e4e4;
+    background-color: gray;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #e4e4e4;
+}
+/**     COMMON PARTS    **/
+.news h1,
+.posts h1,
+.post-one h1 {
     padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid gray;
+    margin-bottom: 20px;
 }
-.admin .article h3,
-.admin .album h3 {
-    margin-top: 0;
+
+/*-------------------------------------------*/
+/*            NEWS                           */
+/*-------------------------------------------*/
+
+.news .block {
+    display: flex;
 }
-.admin .article img,
-.admin .album img {
-    margin-top: 5px;
+.news .date {
+    text-align: right;
+    padding-top: 10px;
+}
+.news .date p {
+    font-size: 20px;
+}
+.news .time-line {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+.news .time-line div {
+    width: 2px;
+    height: 100%;
+    border-left: 2px solid #bbb;
+    position: relative;
+}
+.news .time-line div:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 17px;
+    left: -9px;
+    border: 2px solid #bbbbbb;
+    border-radius: 50%;
+    background: #fff;
+}
+.news .article {
+    box-shadow: none;
+    border: 1px solid #bbbbbb;
+    position: relative;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: #fff;
+}
+.news .article::before,
+.news .article::after {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 10px;
+    border: 15px solid transparent;
+    border-right: 15px solid #bbbbbb;
+}
+.news .article::after {
+    border-right: 15px solid white;
+    left: -29px;
+}
+.news .article h3 {
+    margin-top: 10px;
+}
+.news .article .image {
+    max-width: 250px;
+    max-height: 250px;
+    padding: 5px 15px 15px;
+}
+.news .article image {
+    width: 100%;
+}
+.news .article .text {
+    padding-bottom: 20px;
+}
+/*************************************************/
+/*            POSTs                              */
+/*************************************************/
+.posts {
+    padding: 10px;
+}
+.posts .post {
+    width: 555px;
+}
+.posts .post h2 {
+    border-bottom: 1px dotted #a2a2a2;
+}
+.posts .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    font-style: italic;
+}
+.posts .info .divider-info {
+    flex-grow: 1;
+}
+.posts .info span {
+    padding-left: 10px;
+}
+.posts .image {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.posts .image image {
+    width: 100%;
+}
+.posts .text {
+    padding: 10px;
+    margin-left: 10px;
+}
+.posts .post hr {
+    padding: 0 20px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid #fff;
+}
+/*************************************************/
+/*            POST one                           */
+/*************************************************/
+.post-one {
+    padding-bottom: 30px;
+}
+.post-one .info {
+    padding-bottom: 10px;
+}
+.post-one .info span {
+    padding: 0 20px 0 10px;
+    margin-right: 10px;
+    border-right: 1px solid #bbb;
+}
+.post-one .image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.post-one .text {
+    max-width: 900px;
+    border-left: 20px solid #bbb;
+    padding-left: 20px;
+    margin: 0 auto;
+}
+.post-one .comment-info {
+    text-align: right;
+}
+.post-one .comment-info span {
+    padding: 0 20px 0 10px;
+    margin-right: 10px;
+    border-right: 1px solid #bbb;
+}
+/*************************************************/
+/*            FOOTER                             */
+/*************************************************/
+.container-fluid.footer {
+    padding: 0;
+    border-top: 2px solid #860202;
+    text-align: center;
+    height: 100px;
+    background: #2d2d2d;
 }
