@@ -1,5 +1,9 @@
 {% extends 'Admin.html' %}
 
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': 'blog'} %}
+{% endblock %}
+
 {% block content %}
 
     {% set provider = provider.setPageSize(10) %}

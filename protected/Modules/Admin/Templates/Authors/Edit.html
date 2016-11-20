@@ -2,6 +2,10 @@
 {% import '/macros/Helpers.twig' as Helpers %}
 {% import '/macros/JSBlock.twig' as JS %}
 
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
+{% endblock %}
+
 {% block content %}
     <fieldset>
         {{ Helpers.formLegend(item, 'Автор') }}

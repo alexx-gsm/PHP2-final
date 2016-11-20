@@ -1,11 +1,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Название</th>
-        <th>Альбомы</th>
-        <th>Длительность</th>
-        <th>Автор</th>
-        <th></th>
+        <th>Название</th><th>Альбомы</th><th>Длительность</th><th>Автор</th><th></th>
     </tr>
     </thead>
 
@@ -24,10 +20,10 @@
             <td>{{ item.author.name }}</td>
             <td width="10%">
                 <div class="btn-group" role="group">
-                    <a class="btn btn-sm btn-primary" href="/admin/songs/edit/?id={{ item.Pk }}">
+                    <a class="btn btn-sm btn-primary" href="/admin/songs/edit?id={{ item.Pk }}">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </a>
-                    <a class="btn btn-sm btn-danger" href="/admin/songs/delete/?id={{ item.Pk }}">
+                    <a class="btn btn-sm btn-danger" href="/admin/songs/delete?id={{ item.Pk }}">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                 </div>

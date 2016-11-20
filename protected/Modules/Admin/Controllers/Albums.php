@@ -29,8 +29,6 @@ class Albums
             }
         }
         $this->data->item = $item;
-        $this->data->songs = Song::findAll();
-
     }
 
     public function actionSave($album)
@@ -54,6 +52,21 @@ class Albums
         $album->songs->add($song);
         $album->save();
         $this->redirect('/admin/albums/edit/?id=' . $album->getPk());
+    }
+
+    public function actionDelSong($album_id, $song_id)
+    {
+        $album = Album::findByPK($album_id);
+        $song_to_del = Song::findByPK($song_id);
+
+        if (!empty($song_to_del)) {
+            $album->songs = $album->songs->filter(function (Song $item) use ($song_to_del) {
+                return $item->getPk() != $song_to_del->getPk();
+            });
+            $album->save();
+        }
+
+        $this->redirect('/admin/albums/edit/?id=' . $album_id);
     }
 
     public function actionDelete($id)

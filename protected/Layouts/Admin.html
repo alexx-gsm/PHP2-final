@@ -8,6 +8,7 @@
   {{ publish('/Layouts/assets') }}
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/jquery-ui.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/wickedpicker.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles.css') }}">
   {% block pagehead %}{% endblock %}
 </head>
@@ -17,23 +18,13 @@
   <div class="row">
     <div class="col-xs-3">
       <h2>Разделы</h2>
-      <div class="list-group">
-        <a class="list-group-item" href="/admin/news/">Новости</a>
-        <a class="list-group-item" href="/admin/posts/">Блог</a>
-        <a class="list-group-item" href="/admin/comments/">Комментарии</a>
-        <a class="list-group-item" href="/admin/users/">Пользователи</a>
-        <a class="list-group-item" href="/admin/authors/">Авторы</a>
-        <a class="list-group-item" href="/admin/songs/">Композиции</a>
-        <a class="list-group-item" href="/admin/albums/">Альбомы</a>
-        <a class="list-group-item" href="/admin/menu/">Меню</a>
-      </div>
+      {% block leftMenu %}{% endblock %}
     </div>
     <div class="col-xs-9">
       {% block content %}{% endblock %}
     </div>
   </div>
 </div>
-
 <div class="divider-40"></div>
 {{ publishJs() }}
 <script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>

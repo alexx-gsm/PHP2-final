@@ -1,8 +1,8 @@
 {% extends 'Admin.html' %}
 {% import '/macros/Helpers.twig' as Helpers %}
 
-{% block pagehead %}
-    <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/wickedpicker.css') }}">
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
 {% endblock %}
 
 {% block content %}

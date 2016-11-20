@@ -1,5 +1,9 @@
 {% extends 'Admin.html' %}
 
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
+{% endblock %}
+
 {% block content %}
     <h1>ADMIN panel</h1>
 

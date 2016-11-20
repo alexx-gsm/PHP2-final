@@ -2,26 +2,22 @@
 {% import '/macros/Helpers.twig' as Helpers %}
 {% import '/macros/JSBlock.twig' as JS %}
 
-{% block pagehead %}
-
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
 {% endblock %}
 
 {% block content %}
     <fieldset>
+
         {{ Helpers.formLegend(item, 'Альбом') }}
 
         <form  class="form-horizontal" action="/admin/albums/save/" method="post" enctype="multipart/form-data">
 
             {{ Helpers.formTitle('album[title]', item.title) }}
 
-            <div class="form-group">
-                <label for="published" class="col-sm-2 control-label">Дата выпуска</label>
-                <div class="col-sm-10">
-                    <input id="published" class="form-control" type="text" name="album[published]" value="{{ item.published | date('d.m.Y') }}" required>
-                </div>
-            </div>
+            {{ Helpers.formPublishedDate('album[published]', item.published) }}
 
-            {{ Helpers.formImage(item.image) }}
+            {{ Helpers.formImage('image', item.image) }}
 
             <input type="hidden" name="album[__id]" value="{{ item.Pk }}">
 
@@ -34,15 +30,48 @@
 
     <hr>
     <h3>Композиции</h3>
-    {% include 'parts/songs.twig' with {'items': item.songs} %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Название</th><th>Альбомы</th><th>Длительность</th><th>Автор</th><th></th>
+        </tr>
+        </thead>
+
+        {% for song in item.songs %}
+            <tbody>
+            <tr>
+                <td>{{ song.title }}</td>
+                <td>
+                    <ul>
+                        {% for album in song.albums %}
+                            <li>{{ album.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ song.duration | date('H:i:s') }}</td>
+                <td>{{ song.author.name }}</td>
+                <td width="10%">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/songs/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/albums/delsong/?album_id={{ item.Pk }}&song_id={{ song.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
     <hr>
 
     <fieldset>
         <form class="form-horizontal" action="/admin/albums/addSong/" method="post">
             <div class="col-sm-9">
                 <select name="song[id]" id="" class="form-control">
-                    {% for song in songs %}
-                        <option value="{{ song.Pk }}">"{{ song.title }}": {{ song.author.name }} ({{ song.duration | date('H:i:s') }})</option>
+                    {% for song in item.restSongs %}
+                        <option value="{{ song.Pk }}">"{{ song.title }}" : {{ song.author.name }} ({{ song.duration | date('H:i:s') }})</option>
                     {% endfor %}
                 </select>
             </div>

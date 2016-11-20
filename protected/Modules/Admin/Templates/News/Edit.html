@@ -1,6 +1,10 @@
 {% extends 'Admin.html' %}
 {% import '/macros/Helpers.twig' as Helpers %}
 
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
+{% endblock %}
+
 {% block content %}
     <fieldset>
         {{ Helpers.formLegend(item, 'Новость') }}

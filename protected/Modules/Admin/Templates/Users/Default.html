@@ -1,5 +1,9 @@
 {% extends 'Admin.html' %}
 
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': 'users'} %}
+{% endblock %}
+
 {% block content %}
     {% set provider = provider.setPageSize(10) %}
     <a class="btn btn-primary pull-right" href="/admin/users/edit/?id=new">Добавить пользователя</a>

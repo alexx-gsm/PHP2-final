@@ -1,0 +1,17 @@
+{% set Tabs = {
+    'news'      : {'link': '/admin/news/',      'title': 'Новости'},
+    'blog'      : {'link': '/admin/posts/',     'title': 'Блог'},
+    'comments'  : {'link': '/admin/comments/',  'title': 'Комментарии'},
+    'users'     : {'link': '/admin/users/',     'title': 'Пользователи'},
+    'authors'   : {'link': '/admin/authors/',   'title': 'Авторы'},
+    'songs'     : {'link': '/admin/songs/',     'title': 'Композиции'},
+    'albums'    : {'link': '/admin/albums/',    'title': 'Альбомы'},
+    'menu'      : {'link': '/admin/menu/',      'title': 'Меню'}
+} %}
+
+<div class="list-group">
+{% for key, group in Tabs %}
+    {% set activeClass = (activeTab == key) ? 'active' : '' %}
+    <a class="list-group-item {{ activeClass }}" href="{{ group.link }}">{{ group.title }}</a>
+{% endfor %}
+</div>
