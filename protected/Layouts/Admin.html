@@ -6,6 +6,7 @@
   <title>Админка</title>
   {{ publishCss() }}
   {{ publish('/Layouts/assets') }}
+  {{ publish('/Layouts/Admin/assets') }}
   <link rel="stylesheet" href="{{ asset('/Layouts/Admin/assets/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/Admin/assets/css/smartadmin-production.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
@@ -28,10 +29,12 @@
   </div>
 </div>
 <div class="divider-40"></div>
-{{ publishJs() }}
-<script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/Layouts/assets/js/jquery-ui.min.js') }}"></script>
 
+<script type="text/javascript" src="{{ asset('/Layouts/assets/js/jquery-1.12.0.min.js') }}"></script>
+<script src="{{ asset('/Layouts/assets/js/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/Layouts/assets/js/bootstrap.min.js') }}"></script>
+
+{{ publishJs() }}
 {% block pagescript %}{% endblock %}
 </body>
 </html>

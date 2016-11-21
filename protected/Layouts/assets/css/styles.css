@@ -43,6 +43,16 @@ body {
 .navbar-default .navbar-nav > li > a:focus {
     color: #e4e4e4;
 }
+.navbar .admin-btns {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.navbar .admin-btns a {
+    font-size: 18px;
+    color: #666;
+    padding: 0 5px;
+}
 /**     COMMON PARTS    **/
 .news h1,
 .posts h1,

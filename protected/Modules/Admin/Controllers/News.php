@@ -10,6 +10,11 @@ use T4\Orm\ModelDataProvider;
 
 class News extends Controller
 {
+    protected function access($action, $params = [])
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
+
     public function actionDefault($page = 1)
     {
         $this->data->provider = new ModelDataProvider(Article::class);

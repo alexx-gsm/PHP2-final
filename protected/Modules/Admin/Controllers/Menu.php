@@ -9,6 +9,11 @@ use T4\Core\Exception;
 class Menu
     extends Controller
 {
+    protected function access($action, $params = [])
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
+
     public function actionDefault()
     {
         $this->app->extensions->jstree->init();
@@ -38,7 +43,7 @@ class Menu
             ->fill($_POST)
             ->save();
         if ($item->wasNew()) {
-            $item->moveToFirstPosition();
+            $item->moveToLastPosition();
         }
         $this->redirect('/admin/menu/');
     }

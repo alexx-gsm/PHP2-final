@@ -12,6 +12,11 @@ use T4\Orm\ModelDataProvider;
 class Comments
     extends Controller
 {
+    protected function access($action, $params = [])
+    {
+        return !empty($this->app->user) && $this->app->user->hasRole('admin');
+    }
+
     public function actionDefault($page = 1)
     {
         $this->data->provider = new ModelDataProvider(Comment::class);
