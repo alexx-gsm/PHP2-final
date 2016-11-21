@@ -1,0 +1,56 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+
+<div class="albums">
+    <h1>Альбомы</h1>
+    {% set provider = provider.setPageSize(10) %}
+
+    {% for item in provider.getPage(page) %}
+
+        <div class="row album">
+            <div class="col-sm-4 col-xs-12">
+                <div class="image">
+                    <img src="{{ asset('/Layouts/assets' ~ item.image) }}" width="100%">
+                </div>
+            </div>
+            <div class="col-sm-8 col-xs-12">
+                <h2>{{ item.title }}</h2>
+                <div class="info">
+                    Год выпуска диска: <span>{{ item.published | date('Y') }}</span>
+                </div>
+                <hr>
+
+                <h3>Треклист:</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Название трека</th>
+                        <th>Исполнитель</th>
+                        <th width="10%"></th>
+                    </tr>
+                    </thead>
+                {% for song in item.songs %}
+                    <tr>
+                        <td>{{ song.title }}</td>
+                        <td>{{ song.author.name }}</td>
+                        <td width="15%">
+                            <audio controls>
+                                <source src="{{ asset('/Layouts/assets' ~ song.link) }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/albums/?page=%d'}) }}
+    </div>
+</div>
+{% endblock %}

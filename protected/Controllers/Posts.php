@@ -12,7 +12,7 @@ class Posts extends Controller
 {
     public function actionDefault($page = 1)
     {
-        $this->data->provider = new ModelDataProvider(Post::class);
+        $this->data->provider = new ModelDataProvider(Post::class, ['order' => 'published DESC']);
         $this->data->page = $page;
     }
 

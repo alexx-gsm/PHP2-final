@@ -31,7 +31,7 @@ class Comments
             $item->text = $comment->text;
             $item->published = date('Y-m-d');
             $item->post = $post;
-            $item->user = User::findByPK(1);
+            $item->user = User::findByPK($comment->user_id);
             $item->save();
             $this->redirect('/posts/one/?id=' . $comment->post_id);
         }

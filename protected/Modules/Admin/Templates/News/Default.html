@@ -22,7 +22,7 @@
                     <div>{{ item.text | slice(0, 200) }}&hellip;</div>
                 </div>
                 <div class="col-xs-2">
-                    <p>{{ item.published | date('d.m.Y') }}</p>
+                    <p>{{ item.published | date('d.m.Y') | default('')}}</p>
                     <div class="btn-group" role="group">
                         <a class="btn btn-sm btn-primary" href="/admin/news/edit/?id={{ item.Pk }}">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

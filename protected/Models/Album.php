@@ -38,21 +38,4 @@ class Album extends Model
        return Song::findAllByQuery($query);
     }
 
-    public function removeSongFromAlbum(int $song_id)
-    {
-//        $query = (new QueryBuilder())
-//            ->delete()
-//            ->from('albums_to_songs')
-//            ->where('`__album_id` = :album_id AND `__song_id` = :song_id')
-//            ->params([
-//                ':album_id' => $this->getPk(),
-//                ':song_id'  => $song
-//            ]);
-        $query = 'DELETE FROM albums_to_songs WHERE __album_id = :album_id AND __song_id = :song_id';
-        $conn = $this->app->db->default;
-        $conn->execute($query, [
-            ':album_id' => $this->getPk(),
-            ':song_id'  => $song_id,
-        ]);
-    }
 }

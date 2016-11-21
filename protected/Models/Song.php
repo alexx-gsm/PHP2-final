@@ -21,12 +21,16 @@ class Song extends Model
         'columns' => [
             'title'       => ['type' => 'string'],
             'duration'    => ['type' => 'time'],
+            'link'        => ['type' => 'string'],
         ],
         'relations' => [
             'author' => ['type' => self::BELONGS_TO, 'model' => Author::class],
             'albums' => ['type' => self::MANY_TO_MANY, 'model' => Album::class],
         ],
     ];
+
+    const IMAGE_PATH = ROOT_PATH_PROTECTED . '/Layouts/assets/songs/';
+    const PREFIX_IMAGE_NAME = '/songs/';
 
     protected function sanitizeDuration($val)
     {

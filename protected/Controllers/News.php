@@ -13,7 +13,7 @@ class News
 
     public function actionDefault($page = 1)
     {
-        $this->data->provider = new ModelDataProvider(Article::class);
+        $this->data->provider = new ModelDataProvider(Article::class, ['order' => 'published DESC']);
         $this->data->page = $page;
     }
 

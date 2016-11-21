@@ -33,6 +33,11 @@
             </div>
         {% endfor %}
     </div>
+
+    {% if not app.user %}
+        <div class="alert alert-warning" role="alert">Только зарегистрированные пользователи могут оставлять комментарии.</div>
+    {% else %}
+
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addComment" aria-expanded="false" aria-controls="addComment">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
@@ -44,6 +49,7 @@
                 {{ Helpers.formText('comment[text]') }}
 
                 <input type="hidden" name="comment[post_id]" value="{{ post.Pk }}">
+                <input type="hidden" name="comment[user_id]" value="{{ app.user.Pk }}">
 
                 <div class="btn-group pull-right" role="group">
                     <button class="btn btn-success " type="submit">
@@ -54,6 +60,7 @@
             </form>
         </fieldset>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

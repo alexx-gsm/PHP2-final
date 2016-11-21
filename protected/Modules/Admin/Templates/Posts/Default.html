@@ -31,8 +31,8 @@
                     <img class="img-thumbnail" src="{{ asset('/Layouts/assets' ~ item.image) }}" width="50px" height="50px">
                 </td>
                 <td>{{ item.title }}</td>
-                <td>{{ item.lead }}</td>
-                <td>{{ item.text | raw }}</td>
+                <td>{{ item.lead | slice(0, 50) }}</td>
+                <td>{{ item.text | slice(0, 50) }}</td>
                 <td>{{ item.published | date('d.m.Y') }}</td>
                 <td>{{ item.comments | length }}</td>
                 <td>{{ item.user.name }}</td>

@@ -42,10 +42,13 @@ class Posts
     {
         $item = empty($post->__id) ? new Post() : Post::findByPK($post->__id);
         $item->fill($post);
+        if (null === $item->published) {
+            $item->published = date('Y-m-d');
+        }
 
-        $image = (new Uploader('file'))->setPathUpload(ROOT_PATH_PROTECTED . '/Layouts/assets/images/posts/');
+        $image = (new Uploader('image'))->setPathUpload(Post::IMAGE_PATH);
         if ($image->upload()) {
-            $item->image = $image->getFileName();
+            $item->image = Post::PREFIX_IMAGE_NAME . $image->getFileName();
         }
         $item->save();
 

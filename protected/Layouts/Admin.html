@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Админка</title>
   {{ publishCss() }}
   {{ publish('/Layouts/assets') }}
@@ -12,23 +11,32 @@
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/jquery-ui.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/wickedpicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles.css') }}">
   <link rel="stylesheet" href="{{ asset('/Layouts/assets/css/styles-admin.css') }}">
-  {% block pagehead %}{% endblock %}
 </head>
 <body>
-<div class="container-fluid">HEADER</div>
-<div class="container admin">
-  <div class="row">
-    <div class="col-xs-3">
-      <h2>Разделы</h2>
-      {% block leftMenu %}{% endblock %}
-    </div>
-    <div class="col-xs-9">
-      {% block content %}{% endblock %}
+
+<div class="wrapper">
+  {% include  'parts/adminNav.twig' %}
+  <div class="container admin">
+    <div class="row">
+      <div class="col-xs-3">
+        <h2>Разделы</h2>
+        {% block leftMenu %}{% endblock %}
+      </div>
+      <div class="col-xs-9">
+        {% block content %}{% endblock %}
+      </div>
     </div>
   </div>
+  <div class="divider-40"></div>
 </div>
-<div class="divider-40"></div>
+
+<div class="container-fluid footer">
+  {% block footer %}
+    <footer>PHP 2: final Homework. <a href="http://pr-of-it.ru/"><img src="{{ asset('/Layouts/assets/images/profit.png') }}" alt="Академия программирования"></a></footer>
+  {% endblock %}
+</div>
 
 <script type="text/javascript" src="{{ asset('/Layouts/assets/js/jquery-1.12.0.min.js') }}"></script>
 <script src="{{ asset('/Layouts/assets/js/jquery-ui.min.js') }}"></script>

@@ -13,6 +13,7 @@ class m_1478951769_createSongs
             $this->createTable('songs', [
                 'title'       => ['type' => 'string'],
                 'duration'    => ['type' => 'time'],
+                'link'        => ['type' => 'string'],
                 '__author_id' => ['type' => 'link']
             ]);
         }

@@ -1,0 +1,47 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+
+<div class="songs">
+    <h1>Композиции</h1>
+    {% set provider = provider.setPageSize(20) %}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Название</th><th>Исполнитель</th><th>Альбомы</th><th>Длительность</th><th></th>
+        </tr>
+        </thead>
+
+    {% for item in provider.getPage(page) %}
+        <tbody>
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.author.name }}</td>
+            <td>
+                <ul>
+                    {% for album in item.albums %}
+                        <li>{{ album.title }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td width="10%">{{ item.duration | date('H:i:s') }}</td>
+
+            <td width="15%">
+                <audio controls>
+                    <source src="{{ asset('/Layouts/assets' ~ item.link) }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </td>
+        </tr>
+        </tbody>
+
+    {% endfor %}
+    </table>
+
+
+    <div class="pager">
+        {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/albums/?page=%d'}) }}
+    </div>
+</div>
+{% endblock %}

@@ -42,6 +42,12 @@ class Songs
         $item = empty($song->__id) ? new Song() : Song::findByPK($song->__id);
         $item->fill($song);
 
+
+        $file = (new Uploader('song'))->setPathUpload(Song::IMAGE_PATH);
+        if ($file->upload()) {
+            $item->link = Song::PREFIX_IMAGE_NAME . $file->getFileName();
+        }
+
         $item->save();
 
         $this->redirect('/admin/songs');

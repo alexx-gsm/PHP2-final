@@ -38,6 +38,9 @@ class News extends Controller
     public function actionSave($article)
     {
         $item = empty($article->__id) ? new Article() : Article::findByPK($article->__id);
+        if (null === $item->published) {
+            $item->published = date('Y-m-d');
+        }
         $item->fill($article);
 
         $image = (new Uploader('image'))->setPathUpload(Article::IMAGE_PATH);

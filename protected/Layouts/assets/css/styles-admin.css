@@ -1,3 +1,6 @@
+.admin {
+    padding-top: 15px;
+}
 input[type="file"] {
     display: inline-block;
 }
