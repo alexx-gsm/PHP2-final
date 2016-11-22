@@ -1,0 +1,73 @@
+{% extends 'Admin.html' %}
+
+
+{% block header %}
+{% if item.isNew %}Добавление пользователя{% else %}Редактирование пользователя{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/users/save">
+
+        {% if not item.isNew %}
+        <input type="hidden" name="__id" value="{{item.Pk}}">
+        {% endif %}
+
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">E-mail</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" value="{{item.email}}"{% if not item.isNew %} readonly{% endif %}>
+            </div>
+        </div>
+
+        {% if not item.isNew %}
+        <div class="form-group">
+            <label for="registered" class="col-sm-2 control-label">Зарегистрирован</label>
+            <div class="col-sm-10">
+                <input type="datetime-local" class="form-control" id="registered" name="registered" placeholder="Зарегистрирован" value="{{item.registered|date('Y-m-d\\TH:i')}}" readonly>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if item.isNew %}
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Пароль</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="password" name="password" placeholder="Пароль" value="">
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Имя</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Имя" value="{{item.name}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="roles" class="col-sm-2 control-label">Роли</label>
+            <div class="col-sm-10">
+                <ul class="list-group">
+                    {% for i, role in roles %}
+                    <li class="list-group-item">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="roles[{{i}}]" name="roles[]" value="{{role.Pk}}"{% if item.hasRole(role.name) %} checked{% endif %}>
+                            {{role.title}}
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+         <footer class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}</button>
+            <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        </footer>
+
+    </form>
+</div>
+
+{% endblock %}
