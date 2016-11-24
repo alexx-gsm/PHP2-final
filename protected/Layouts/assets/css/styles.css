@@ -6,6 +6,9 @@ html, body {
 body {
     background: transparent;
 }
+.divider-40 {
+    margin-top: 40px;
+}
 .wrapper {
     min-height: 100%;
     margin-bottom: -100px;
@@ -49,10 +52,25 @@ body {
     align-items: center;
     height: 50px;
 }
+.navbar .admin-btns span,
 .navbar .admin-btns a {
     font-size: 18px;
     color: #666;
-    padding: 0 5px;
+    padding: 0 10px;
+}
+.main-slider {
+    display: flex;
+    justify-content: center;
+}
+.carousel {
+    margin: 10px 0;
+    max-width: 800px;
+    text-align: center;
+}
+.main-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
 }
 /**     COMMON PARTS    **/
 .news h1,
