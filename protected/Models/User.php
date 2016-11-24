@@ -18,7 +18,7 @@ class User extends Model
         'relations' => [
             'posts'     => ['type' => self::HAS_MANY, 'model' => Post::class],
             'comments'  => ['type' => self::HAS_MANY, 'model' => Comment::class],
-            'role'=>['type'=>self::BELONGS_TO, 'model'=>Role::class]
+            'role'      => ['type'=>self::BELONGS_TO, 'model'=>Role::class]
         ],
     ];
 

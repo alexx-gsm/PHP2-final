@@ -1,0 +1,63 @@
+{% extends 'Admin.html' %}
+{% import '/macros/Helpers.twig' as Helpers %}
+
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
+{% endblock %}
+
+{% block content %}
+
+    <fieldset>
+        <legend>
+            {% if item.isNew %}Добавление пользователя{% else %}Редактирование пользователя{% endif %}
+        </legend>
+
+        <form class="form-horizontal" method="post" action="/admin/users/save">
+
+            {% if not item.isNew %}
+                <input type="hidden" name="user[__id]" value="{{item.Pk}}">
+            {% endif %}
+
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">E-mail</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="email" name="user[email]" placeholder="E-mail" value="{{item.email}}"{% if not item.isNew %} readonly{% endif %}>
+                </div>
+            </div>
+
+            {% if item.isNew %}
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">Пароль</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" name="user[password]" placeholder="Пароль" value="">
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Имя</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="user[name]" placeholder="Имя" value="{{item.name}}">
+                </div>
+            </div>
+
+            <div class="form-group user-role">
+                <label for="roles" class="col-sm-2 control-label">Роли</label>
+                <div class="col-sm-10">
+                    <div class="form-control">
+                        {% for role in roles %}
+                        <label class="radio-inline">
+                            <input type="radio" name="user[role_id]" value="{{ role.Pk }}">
+                            {{- role.title -}}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {{ Helpers.formBtnSave('users') }}
+
+        </form>
+    </fieldset>
+
+{% endblock %}

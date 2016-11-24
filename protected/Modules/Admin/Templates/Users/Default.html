@@ -12,9 +12,9 @@
         <tr>
             <th>Имя</th>
             <th>Почта</th>
+            <th>Роль</th>
             <th>Количество статей</th>
             <th>Количество комментариев</th>
-            <th>День рождения</th>
             <th>Дата регистрации</th>
             <th></th>
         </tr>
@@ -22,11 +22,21 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.email }}</td>
+                <td>{{ item.role.title }}</td>
                 <td>{{ item.posts | length }}</td>
                 <td>{{ item.comments | length }}</td>
-                <td>{{ item.birthday | date('d.m.Y') }}</td>
+
                 <td>{{ item.registered | date('d.m.Y') }}</td>
-                <td></td>
+                <td width="10%">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" href="/admin/users/edit/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/admin/users/delete/?id={{ item.Pk }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
             </tr>
 
         {% endfor %}
