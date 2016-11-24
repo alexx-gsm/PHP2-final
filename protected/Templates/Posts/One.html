@@ -12,7 +12,7 @@
     <div class="image">
         <img src="{{ asset('/Layouts/assets' ~ post.image) }}">
     </div>
-    <div class="text">{{ post.text }}</div>
+    <div class="text">{{ post.text | raw }}</div>
 
     <hr>
     <a class="btn btn-sm btn-default" href="/posts/"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp; Все статьи</a>
