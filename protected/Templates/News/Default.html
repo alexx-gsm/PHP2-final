@@ -26,7 +26,7 @@
             </div>
         {% endfor %}
 
-    <div class="pager">
+    <div class="pager-center">
         {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/admin/posts/?page=%d'}) }}
     </div>
 </div>
