@@ -34,19 +34,16 @@ class Users
         $this->data->roles = Role::findAll();
     }
 
-    public function actionSave()
+    public function actionSave($user)
     {
-        if (!empty($this->app->request->post->__id)) {
-            $item = User::findByPK($this->app->request->post->__id);
-        } else {
-            $item = new User();
-        }
+        $item = !empty($user->__id) ? User::findByPK($user->__id) :  new User();
+        $item->fill($user);
 
-        $item
-            ->fill($this->app->request->post)
-            ->fillRoles($this->app->request->post->roles);
+        $role = !empty($user->role_id) ? Role::findByPK($user->role_id) : Role::findByTitle('Пользователь');
+        $item->role = $role;
 
         if ($item->isNew()) {
+            $item->registered = date('Y-m-d');
             $item->password = password_hash($item->password, PASSWORD_DEFAULT);
         }
 

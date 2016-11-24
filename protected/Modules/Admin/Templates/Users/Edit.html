@@ -1,73 +1,63 @@
 {% extends 'Admin.html' %}
+{% import '/macros/Helpers.twig' as Helpers %}
 
-
-{% block header %}
-{% if item.isNew %}Добавление пользователя{% else %}Редактирование пользователя{% endif %}
+{% block leftMenu %}
+    {% include 'parts/leftMenu.twig' with {'activeTab': ''} %}
 {% endblock %}
 
 {% block content %}
 
-<div class="row">
-    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/users/save">
+    <fieldset>
+        <legend>
+            {% if item.isNew %}Добавление пользователя{% else %}Редактирование пользователя{% endif %}
+        </legend>
 
-        {% if not item.isNew %}
-        <input type="hidden" name="__id" value="{{item.Pk}}">
-        {% endif %}
+        <form class="form-horizontal" method="post" action="/admin/users/save">
 
-        <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">E-mail</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" value="{{item.email}}"{% if not item.isNew %} readonly{% endif %}>
+            {% if not item.isNew %}
+                <input type="hidden" name="user[__id]" value="{{item.Pk}}">
+            {% endif %}
+
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">E-mail</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="email" name="user[email]" placeholder="E-mail" value="{{item.email}}"{% if not item.isNew %} readonly{% endif %}>
+                </div>
             </div>
-        </div>
 
-        {% if not item.isNew %}
-        <div class="form-group">
-            <label for="registered" class="col-sm-2 control-label">Зарегистрирован</label>
-            <div class="col-sm-10">
-                <input type="datetime-local" class="form-control" id="registered" name="registered" placeholder="Зарегистрирован" value="{{item.registered|date('Y-m-d\\TH:i')}}" readonly>
+            {% if item.isNew %}
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">Пароль</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" name="user[password]" placeholder="Пароль" value="">
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Имя</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="user[name]" placeholder="Имя" value="{{item.name}}">
+                </div>
             </div>
-        </div>
-        {% endif %}
 
-        {% if item.isNew %}
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Пароль</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="password" name="password" placeholder="Пароль" value="">
-            </div>
-        </div>
-        {% endif %}
-
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Имя</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Имя" value="{{item.name}}">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="roles" class="col-sm-2 control-label">Роли</label>
-            <div class="col-sm-10">
-                <ul class="list-group">
-                    {% for i, role in roles %}
-                    <li class="list-group-item">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="roles[{{i}}]" name="roles[]" value="{{role.Pk}}"{% if item.hasRole(role.name) %} checked{% endif %}>
-                            {{role.title}}
+            <div class="form-group user-role">
+                <label for="roles" class="col-sm-2 control-label">Роли</label>
+                <div class="col-sm-10">
+                    <div class="form-control">
+                        {% for role in roles %}
+                        <label class="radio-inline">
+                            <input type="radio" name="user[role_id]" value="{{ role.Pk }}">
+                            {{- role.title -}}
                         </label>
-                    </li>
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
 
-         <footer class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">{% if item.isNew %}Создать{% else %}Сохранить{% endif %}</button>
-            <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
-        </footer>
+            {{ Helpers.formBtnSave('users') }}
 
-    </form>
-</div>
+        </form>
+    </fieldset>
 
 {% endblock %}
