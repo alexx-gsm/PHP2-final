@@ -4,7 +4,7 @@
 
 <div class="songs">
     <h1>Композиции</h1>
-    {% set provider = provider.setPageSize(20) %}
+    {% set provider = provider.setPageSize(5) %}
 
     <table class="table table-striped">
         <thead>
@@ -39,9 +39,9 @@
     {% endfor %}
     </table>
 
-
-    <div class="pager">
+    <div class="pager-center">
         {{ widget('pager', {'total': provider.total, 'size': provider.pageSize, 'active': page, 'url':'/albums/?page=%d'}) }}
     </div>
+
 </div>
 {% endblock %}
