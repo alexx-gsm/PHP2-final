@@ -19,4 +19,12 @@ class Article extends Model
     const IMAGE_PATH = ROOT_PATH_PROTECTED . '/Layouts/assets/images/news/';
     const PREFIX_IMAGE_NAME = '/images/news/';
 
+    public static function findNLastItem($count = 1)
+    {
+        return self::findAll([
+            'order' => '__id DESC',
+            'limit'=> $count
+        ]);
+
+    }
 }

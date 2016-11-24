@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Components\Auth\Identity;
+use App\Models\Article;
 use App\Models\Menu;
+use App\Models\Song;
 use T4\Core\Exception;
 use T4\Core\Std;
 use T4\Mvc\Controller;
@@ -14,6 +16,19 @@ class Index
 
     public function actionDefault()
     {
+        $this->data->lastNews = Article::findAll([
+            'order' => '__id DESC',
+            'limit'=> 3
+        ]);
+
+        $song = Song::findAll([
+            'order' => 'rand()',
+            'limit' => 1
+        ]);
+        if (!empty($song)) {
+            $this->data->rndSong = $song[0];
+        }
+
     }
 
     public function action404()
