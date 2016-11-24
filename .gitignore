@@ -2,3 +2,7 @@
 vendor
 protected/Cache
 public/Assets
+/protected/Layouts/assets/songs/
+/protected/Layouts/assets/images/albums/
+/protected/Layouts/assets/images/news/
+/protected/Layouts/assets/images/slider/
